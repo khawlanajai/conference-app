@@ -1,0 +1,17 @@
+<section class="card green">
+  <div class="icon">👥</div>
+  <div>
+    <h2>Liste des amis</h2>
+    <!-- Two-way data binding : les 3 champs restent synchronisés -->
+    <input [(ngModel)]="name" />
+    <input [(ngModel)]="name" />
+    <input [(ngModel)]="name" />
+    <ul>
+      @for (friend of friends; track friend) {
+        <li>{{ friend }}</li>
+      } @empty {
+        <li>Aucun ami</li>
+      }
+    </ul>
+  </div>
+</section>

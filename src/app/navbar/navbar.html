@@ -1,0 +1,5 @@
+<nav>
+  @for (item of items; track item) {
+    <a [ngClass]="{ active: item === active() }" (click)="active.set(item)">{{ item }}</a>
+  }
+</nav>
