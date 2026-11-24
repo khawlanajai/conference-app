@@ -3,10 +3,11 @@ import { DatePipe, NgClass, UpperCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Conference } from '../models/conference';
 import { ConferenceList } from '../models/conference-list';
+import { ConferenceDetails } from '../conference-details/conference-details';
 
 @Component({
   selector: 'app-conference-list',
-  imports: [FormsModule, NgClass, UpperCasePipe, DatePipe],
+  imports: [FormsModule, NgClass, UpperCasePipe, DatePipe,ConferenceDetails],
   templateUrl: './conference-list.html',
   styleUrl: './conference-list.css',
 })
@@ -39,4 +40,13 @@ export class ConferenceListComponent {
       list.map(x => (x.id === c.id ? { ...x, nbParticipants: x.nbParticipants + 1 } : x))
     );
   }
+  selectedId = signal<number | null>(null);
+
+selected = computed(
+  () => this.conferences().find(c => c.id === this.selectedId()) ?? null
+);
+
+select(c: Conference) {
+  this.selectedId.set(c.id);
+}
 }

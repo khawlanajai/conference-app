@@ -1,0 +1,13 @@
+<aside class="details">
+    @if (conference(); as c) {
+    <h3>{{ c.title | uppercase }}</h3>
+    <p>{{ c.description }}</p>
+    <p><strong>Date :</strong> {{ c.date | date: 'dd/MM/yyyy' }}</p>
+    <p><strong>Lieu :</strong> {{ c.place }}</p>
+    <p><strong>Capacité :</strong> {{ c.maxParticipants }}</p>
+    <p><strong>Inscrits :</strong> {{ c.nbParticipants }}</p>
+    <p><strong>Places restantes :</strong> {{ c.maxParticipants - c.nbParticipants }}</p>
+    <button (click)="closed.emit()">Fermer</button> } @else {
+    <p>Sélectionnez une conférence pour afficher ses détails.</p>
+    }
+</aside>

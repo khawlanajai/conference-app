@@ -1,33 +1,32 @@
 <section class="card teal">
-  <div class="wrap">
-    <div class="head">
-      <div class="icon">📅</div>
-      <div>
-        <h2>Liste des conférences à venir</h2>
-        <p class="sub">Cliquez sur une conférence pour afficher ses détails.</p>
-      </div>
-    </div>
+    <div class="wrap">
+        <div class="head">
+            <div class="icon">📅</div>
+            <div>
+                <h2>Liste des conférences à venir</h2>
+                <p class="sub">Cliquez sur une conférence pour afficher ses détails.</p>
+            </div>
+        </div>
 
-    <input class="search" placeholder="Taper le titre de la conférence" [(ngModel)]="search" />
-
-    @if (conferences().length === 0) {
-      <p>Aucune conférence enregistrée.</p>
-    } @else if (filtered().length === 0) {
-      <p>Aucune conférence ne correspond à votre recherche.</p>
-    } @else {
-      <div class="grid">
-        @for (c of filtered(); track c.id) {
-          <article class="conf">
-            <h3>{{ c.title | uppercase }}</h3>
-            <p><strong>Date :</strong> {{ c.date | date: 'dd/MM/yyyy' }}</p>
-            <p><strong>Lieu :</strong> {{ c.place }}</p>
-            <p><strong>Places restantes :</strong> {{ remaining(c) }}</p>
-            <button [ngClass]="btnClass(c)" [disabled]="remaining(c) === 0" (click)="register(c)">
+        <input class="search" placeholder="Taper le titre de la conférence" [(ngModel)]="search" /> @if (conferences().length === 0) {
+        <p>Aucune conférence enregistrée.</p>
+        } @else if (filtered().length === 0) {
+        <p>Aucune conférence ne correspond à votre recherche.</p>
+        } @else {
+        <div class="grid">
+            @for (c of filtered(); track c.id) {
+            <article class="conf" (click)="select(c)">
+                <h3>{{ c.title | uppercase }}</h3>
+                <p><strong>Date :</strong> {{ c.date | date: 'dd/MM/yyyy' }}</p>
+                <p><strong>Lieu :</strong> {{ c.place }}</p>
+                <p><strong>Places restantes :</strong> {{ remaining(c) }}</p>
+                <button [ngClass]="btnClass(c)" [disabled]="remaining(c) === 0" (click)="register(c); $event.stopPropagation()">
               S'inscrire
             </button>
-          </article>
-        }
-      </div>
-    }
-  </div>
+            </article>
+            }
+        </div>
+
+        <app-conference-details [conference]="selected()" (closed)="selectedId.set(null)" /> }
+    </div>
 </section>
